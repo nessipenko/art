@@ -48,7 +48,7 @@ const modals = () => {
 
                 modal.style.display = 'none'
                 document.body.style.overflow = ''
-                document.body.style.marginRight = `0px`                // 
+                document.body.style.marginRight = `0px`
             }
         })
     }
@@ -97,7 +97,7 @@ const modals = () => {
         })
     }
     bindModal('.button-design', '.popup-design', '.popup-design .popup-close')
-    bindModal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close')
+    bindModal('.-consultation', '.popup-consultation', '.popup-consultation .popup-close')
     bindModal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true)
     openByScroll('.fixed-gift')
     showModalByTime('.popup-consultation', 60000)

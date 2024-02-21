@@ -612,7 +612,7 @@ h4 {
     border: none;
     display: block;
     font-size: 1.9rem;
-    padding: 2rem 0;
+    padding: 0.5rem 0;
 }
 
 .calc .promocode {
@@ -640,7 +640,7 @@ h4 {
 }
 
 .calc .button-order {
-    margin-top: 6rem;
+    margin-top: 3rem;
     padding-left: 8rem;
     padding-right: 8rem;
 }
@@ -674,9 +674,15 @@ h4 {
 }
 
 .calc .file_upload>div {
-    padding-left: 1em
-        /* example */
-    ;
+    opacity: 0.4;
+    font-family: 'Circe Extra Bold', sans-serif;
+    margin-left: 4rem;
+    display: block;
+    font-size: 1.5rem;
+    padding: 2rem 0;
+
+    /* example */
+
 }
 
 .calc .file_upload input[type=file] {
@@ -1498,6 +1504,14 @@ h4 {
 .status {
     text-align: center;
 }
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 15px;
+    text-align: center;
+}
+
 
 @media (max-width: 1399px) {
     .paints {

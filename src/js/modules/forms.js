@@ -6,6 +6,7 @@ const forms = () => {
         inputs = document.querySelectorAll('input'),
         upload = document.querySelectorAll('[name="upload"]')
 
+
     const message = {
         loading: 'Загрузка...',
         success: 'Спасибо. Мы с Вами свяжемся.',
@@ -20,25 +21,30 @@ const forms = () => {
         questions: 'assets/questions.php'
     }
 
-
     const clearInputs = () => {
+        const divSum = document.querySelector('.calc-price')
+        divSum.textContent = 'Пожалуйста, выберите размер и материал картины'
         inputs.forEach(item => {
             item.value = ''
         })
         upload.forEach(item => {
             item.previousElementSibling.textContent = 'Файл не выбран'
-
         })
     }
+    const clearSelects = () => {
+        document.querySelectorAll('select').forEach(select => {
+            select.selectedIndex = 0;
+        });
+    };
 
     upload.forEach(item => {
         item.addEventListener('input', () => {
             console.log('upload', item.files[0])
             let dots
             const arr = item.files[0].name.split('.')
+
             arr[0].length > 8 ? dots = '...' : dots = '.'
-            const name = arr[0].substring(0, 8)
-                + dots + arr[1]
+            const name = arr[0].substring(0, 8) + dots + arr[1]
             item.previousElementSibling.textContent = name
         })
     })
@@ -62,6 +68,19 @@ const forms = () => {
         item.addEventListener('submit', (e) => {
             e.preventDefault()
 
+            const uploadInput = item.querySelector('[name="upload"]');
+            const sum = item.querySelector('[name="result"]');
+
+
+            if (uploadInput && (!uploadInput.files || uploadInput.files.length === 0)) {
+                if (!item.querySelector('.error-message')) {
+                    const errorMessage = document.createElement('div');
+                    errorMessage.textContent = 'Пожалуйста, выберите файл для загрузки.';
+                    errorMessage.classList.add('error-message');
+                    item.appendChild(errorMessage);
+                } return;
+            }
+
             let statusMessage = document.createElement('div')
             statusMessage.classList.add('status')
             item.parentNode.appendChild(statusMessage)
@@ -81,8 +100,12 @@ const forms = () => {
             statusMessage.appendChild(textMessage)
 
             const formData = new FormData(item)
+
+            if (sum) {
+                formData.append('sum', sum.textContent);
+            }
             let api
-            item.closest('.popup-design') || item.classList.contains('calc_form') ? api = path.designer : api = path.questions
+            item.closest('.popup-design') ? api = path.designer : api = path.questions
             console.log(api)
 
             postData(api, formData)
@@ -97,27 +120,22 @@ const forms = () => {
                 })
                 .finally(() => {
                     clearInputs()
+                    clearSelects()
+
                     setTimeout(() => {
                         statusMessage.remove()
                         item.style.display = 'block'
                         item.classList.remove('fadeOutUp')
                         item.classList.add('fadeInUp')
+
+                        const errorMessage = item.querySelector('.error-message');
+                        if (errorMessage) {
+                            errorMessage.remove()
+                        }
                     }, 5000)
-                    // setTimeout(() => {
-                    //     hideModal()
-                    // }, 2000)
-                    // clearState()
-                    // for (let key in state) {
-                    //     delete state[key]
-                    // }
-                    // setTimeout(() => {
-                    //     statusMessage.remove()
-                    //     windows.forEach(item => {
-                    //         item.getElementsByClassName.dispaly = 'none'
-                    //     })
-                    // }, 5000)
                 })
         })
+
     })
 }
 export default forms

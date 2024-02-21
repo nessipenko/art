@@ -17,3 +17,4 @@ const getResource = async (url) => {
 }
 
 export { postData, getResource }
+
