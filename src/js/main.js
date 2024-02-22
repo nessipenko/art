@@ -9,6 +9,8 @@ import filter from "./modules/filter";
 import showPictureSize from "./modules/showPictureSize";
 import accordeon from "./modules/accordeon";
 import burger from "./modules/burger";
+import scrolling from "./modules/scrolling";
+import drop from "./modules/drop";
 
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -27,5 +29,7 @@ window.addEventListener('DOMContentLoaded', () => {
     showPictureSize('.sizes-block')
     accordeon('.accordion-heading')
     burger('.burger-menu', '.burger')
+    scrolling('.pageup')
+    drop()
 
 })

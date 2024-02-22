@@ -7,12 +7,14 @@ const accordeon = (triggersSel) => {
             btns.forEach(otherBtn => {
                 if (otherBtn !== this) {
                     otherBtn.classList.remove('active-style')
+                    otherBtn.querySelector('span').style.color = ''
                     otherBtn.nextElementSibling.classList.remove('active-content')
                     otherBtn.nextElementSibling.style.maxHeight = '0px'
                 }
             })
 
             this.classList.toggle('active-style')
+            this.querySelector('span').style.color = isOpen ? '' : '#E950D7';
             this.nextElementSibling.classList.toggle('active-content')
 
             if (isOpen) {
@@ -27,11 +29,6 @@ const accordeon = (triggersSel) => {
             // }
         })
     })
-
-
-
-
-
 
     // blocks = document.querySelectorAll(itemsSel)
 

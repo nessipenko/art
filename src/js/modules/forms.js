@@ -104,6 +104,7 @@ const forms = () => {
             if (sum) {
                 formData.append('sum', sum.textContent);
             }
+
             let api
             item.closest('.popup-design') ? api = path.designer : api = path.questions
             console.log(api)
