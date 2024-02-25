@@ -10,6 +10,7 @@ const modals = () => {
             windows = document.querySelectorAll('[data-modal]'),
             scroll = calcScroll()
 
+
         trigger.forEach(item => {
             item.addEventListener('click', (e) => {
                 if (e.target) {
@@ -96,6 +97,9 @@ const modals = () => {
             }
         })
     }
+
+
+
     bindModal('.button-design', '.popup-design', '.popup-design .popup-close')
     bindModal('.button-consultation', '.popup-consultation', '.popup-consultation .popup-close')
     bindModal('.fixed-gift', '.popup-gift', '.popup-gift .popup-close', true)

@@ -5,7 +5,17 @@ const forms = () => {
     const form = document.querySelectorAll('form'),
         inputs = document.querySelectorAll('input'),
         upload = document.querySelectorAll('[name="upload"]')
+    const calcForm = document.getElementById('calc_form'),
+        quickOrderBtn = document.querySelector('.btn-open_new_modal'),
+        consultationModal = document.querySelector('.popup-consultation'),
+        consultationForm = document.querySelector('#consultation_form'),
+        sumElem = document.querySelector('[name="result"]');
 
+
+    quickOrderBtn.addEventListener('click', (e) => {
+        e.preventDefault()
+        consultationModal.style.display = 'block';
+    });
 
     const message = {
         loading: 'Загрузка...',
@@ -29,13 +39,28 @@ const forms = () => {
         })
         upload.forEach(item => {
             item.previousElementSibling.textContent = 'Файл не выбран'
+
         })
-    }
-    const clearSelects = () => {
         document.querySelectorAll('select').forEach(select => {
             select.selectedIndex = 0;
-        });
-    };
+        })
+    }
+    function isFormFilled(form) {
+        const inputs = form.querySelectorAll('input');
+        const selects = form.querySelectorAll('select');
+
+        for (const input of inputs) {
+            if (input.value.trim() !== '') {
+                return true;
+            }
+        }
+        for (const select of selects) {
+            if (select.value !== '') {
+                return true;
+            }
+        }
+        return false;
+    }
 
     upload.forEach(item => {
         item.addEventListener('input', () => {
@@ -48,29 +73,33 @@ const forms = () => {
             item.previousElementSibling.textContent = name
         })
     })
-    //закрытие мод окна после отправки
-    // const hideModal = () => {
-    //     windows.forEach(item => {
-    //         setTimeout(() => {
-    //             item.style.display = 'none'
-    //         }, 1000)
-    //     })
-    //     document.body.classList.remove('modal-open')
-
-    // }
-    // const clearState = () => {
-    //     for (const prop of Object.keys(state)) {
-    //         delete state[prop]
-    //     }
-    // }
 
     form.forEach(item => {
         item.addEventListener('submit', (e) => {
             e.preventDefault()
 
-            const uploadInput = item.querySelector('[name="upload"]');
-            const sum = item.querySelector('[name="result"]');
+            const formData = new FormData(item);
+            for (let key of formData) {
+                console.log('formData', key);
+            }
 
+            if (isFormFilled(calcForm)) {
+                const calcFormData = new FormData(calcForm);
+                for (const [key, value] of calcFormData.entries()) {
+                    formData.append(key, value);
+                }
+            }
+            const consultationFormData = new FormData(consultationForm);
+            for (const [key, value] of consultationFormData.entries()) {
+                formData.append(key, value);
+
+            }
+
+            const uploadInput = item.querySelector('[name="upload"]');
+            const sumText = sumElem.textContent.trim();
+            if (sumText) {
+                formData.append('sum', sumText);
+            }
 
             if (uploadInput && (!uploadInput.files || uploadInput.files.length === 0)) {
                 if (!item.querySelector('.error-message')) {
@@ -99,19 +128,14 @@ const forms = () => {
             textMessage.textContent = message.loading
             statusMessage.appendChild(textMessage)
 
-            const formData = new FormData(item)
 
-            if (sum) {
-                formData.append('sum', sum.textContent);
-            }
 
             let api
             item.closest('.popup-design') ? api = path.designer : api = path.questions
             console.log(api)
-
             postData(api, formData)
                 .then(res => {
-                    console.log(res)
+                    console.log('res', res)
                     statusImg.setAttribute('src', message.ok)
                     textMessage.textContent = message.success
                 })
@@ -121,7 +145,6 @@ const forms = () => {
                 })
                 .finally(() => {
                     clearInputs()
-                    clearSelects()
 
                     setTimeout(() => {
                         statusMessage.remove()

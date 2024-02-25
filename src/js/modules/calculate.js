@@ -31,6 +31,7 @@ const calculate = (size, material, options, promocode, result) => {
         } else {
             resultBlock.textContent = sum;
         }
+        return resultBlock.textContent
     };
     const getValue = (state, category, key) => {
         if (!state || !state[category] || !state[category][key]) return 0;
