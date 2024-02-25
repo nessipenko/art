@@ -220,7 +220,7 @@
             <h2>Рассчитайте стоимость и получите скидку 30%</h2>
             <div class="row">
                 <div class="col-md-4 col-offset-1">
-                    <form class="form calc_form" action="#" method="POST" enctype="multipart/form-data">
+                    <form id="calc_form" class="form calc_form" action="#" method="POST" enctype="multipart/form-data">
                         <h4>Загрузите свое фото</h4>
                         <div class="file_upload">
                             <button type="button">Загрузить фотографию</button>
@@ -255,7 +255,7 @@
                         <input name="promocode" type="text" class="promocode" placeholder="Введите ваш промокод">
                         <div name="result" type="text" class="calc-price"> Для расчета нужно выбрать размер картины и
                             материал картины</div>
-                        <button class="button button-order">Быстрый заказ</button>
+                        <button class="button button-order btn-open_new_modal">Быстрый заказ</button>
                     </form>
                 </div>
                 <div class="col-md-4 col-md-offset-2 hidden-sm hidden-xs">
@@ -511,12 +511,12 @@
         </div>
     </section>
 
-    <section class="feedback">
+    <div class="feedback">
         <div class="container">
             <div class="feedback-slider" style="position:relative; height: 400px;">
                 <button class="main-slider-btn main-prev-btn">
                     <img src="assets/img/left-arr.png" alt="left">
-                </button>
+                </button>'
                 <button class="main-slider-btn main-next-btn">
                     <img src="assets/img/right-arr.png" alt="right">
                 </button>
@@ -537,10 +537,42 @@
                         <p class="feedback-signature"><span>Олег Петров,</span> д. Месягутово</p>
                     </div>
                 </div>
-                <!-- Add other feedback-slider-item divs similarly -->
+                <div class="feedback-slider-item">
+                    <div class="col-sm-5">
+                        <div class="feedback-block">
+                            <img src="assets/img/feedback-2.jpg" alt>
+                            <button class="button button-order button-design">Хочу так же</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-sm-offset-1">
+                        <p class="feedback-heading">«...Я в восторге! Не думала, что портрет может быть настолько
+                            красивым!...»</p>
+                        <p class="feedback-text">Подруге муж подарил портрет, и мне тоже захотелось заказать. Из всех
+                            макетов этот сразу запал в душу! И отлично вписывется в интерьер моей гостинной. Теперь он
+                            висит тут на почетном месте, и я каждый раз любую им. Всем моим родным тоже очень
+                            понравился!</p>
+                        <p class="feedback-signature"><span>Ирина Антонова,</span> г. Кисловодск</p>
+                    </div>
+                </div>
+                <div class="feedback-slider-item">
+                    <div class="col-sm-5">
+                        <div class="feedback-block">
+                            <img src="assets/img/feedback-3.jpg" alt>
+                            <button class="button button-order button-design">Хочу так же</button>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-sm-offset-1">
+                        <p class="feedback-heading">«...Неожиданный подарок на день рождения от друзей...»</p>
+                        <p class="feedback-text">Хочу поделиться впечатлениями от полученного вчера подарка. Классная
+                            работа, выполненная, натуральными красками! Я как человек педантичный, люблю мелочи, для
+                            меня они очень важны, и здесь они прикольно сделаны – часы нарисовали, свитерок мой любимый,
+                            маечка с резиночкой. Очень позитивный шарж, сделанный по моей фотографии.</p>
+                        <p class="feedback-signature"><span>Нарек Маргарян,</span> г. Великие Луки</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
+    </div>
 
     <section class="often-questions" id="often-questions">
         <div class="container">
@@ -690,7 +722,7 @@
                 <button class="popup-close">&times;</button>
                 <h4>Остались вопросы? Закажите обратный звонок</h4>
                 <div class="main-form">
-                    <form class="form" action="#" method="POST">
+                    <form id="consultation_form" class="form" action="#" method="POST">
                         <input type="text" name="name" placeholder="Ваше имя" required>
                         <input type="text" name="phone" placeholder="Ваш телефон" required>
                         <button class="button button-order">Получить консультацию</button>
