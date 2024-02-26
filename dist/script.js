@@ -128,7 +128,6 @@ const calculate = (size, material, options, promocode, result) => {
     } else {
       resultBlock.textContent = sum;
     }
-    return resultBlock.textContent;
   };
   const getValue = (state, category, key) => {
     if (!state || !state[category] || !state[category][key]) return 0;
@@ -390,7 +389,7 @@ const forms = () => {
       select.selectedIndex = 0;
     });
   };
-  function isFormFilled(form) {
+  const isFormFilled = form => {
     const inputs = form.querySelectorAll('input');
     const selects = form.querySelectorAll('select');
     for (const input of inputs) {
@@ -404,7 +403,7 @@ const forms = () => {
       }
     }
     return false;
-  }
+  };
   upload.forEach(item => {
     item.addEventListener('input', () => {
       console.log('upload', item.files[0]);
@@ -428,23 +427,18 @@ const forms = () => {
           formData.append(key, value);
         }
       }
-      const consultationFormData = new FormData(consultationForm);
-      for (const [key, value] of consultationFormData.entries()) {
-        formData.append(key, value);
-      }
-      const uploadInput = item.querySelector('[name="upload"]');
       const sumText = sumElem.textContent.trim();
-      if (sumText) {
-        formData.append('sum', sumText);
+      const sumValue = parseFloat(sumText);
+      if (!isNaN(sumValue)) {
+        formData.append('sum', sumValue);
       }
-      if (uploadInput && (!uploadInput.files || uploadInput.files.length === 0)) {
-        if (!item.querySelector('.error-message')) {
-          const errorMessage = document.createElement('div');
-          errorMessage.textContent = 'Пожалуйста, выберите файл для загрузки.';
-          errorMessage.classList.add('error-message');
-          item.appendChild(errorMessage);
-        }
-        return;
+      const nameInput = item.querySelector('[name="name"]');
+      const phoneInput = item.querySelector('[name="phone"]');
+      if (nameInput.value.trim() !== '') {
+        formData.append('name', nameInput.value.trim());
+      }
+      if (phoneInput.value.trim() !== '') {
+        formData.append('phone', phoneInput.value.trim());
       }
       let statusMessage = document.createElement('div');
       statusMessage.classList.add('status');
